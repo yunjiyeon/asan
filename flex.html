@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <style>
+        #wrap {}
+        header {
+            height: 45px;
+            background: #33353f;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <!-- 헤더 -->
+        <header>
+            <h1>헤더</h1>
+        </header>
+
+        <!-- 메인 -->
+        <div id="con_wrap">
+            <div id="con_up">
+                <section class="s1-1">위-왼쪽</section>
+                <div class="con_up_right">
+                    <section class="s1-2">위-오른쪽1</section>
+                    <section class="s1-3">위-오른쪽2</section>
+                </div>
+            </div>
+            <div id="con_down">
+                <section class="s2-1">아래-왼쪽</section>
+                <section class="s2-2">아래-오른쪽</section>
+            </div>
+        </div>
+        <style> /* 스타일을 body 에 넣을 수 있으나 바람직하지는 않음 */
+            #con_wrap { 
+                border: 2px solid red;
+                display: flex;
+                flex-direction: column;
+            }
+                #con_up { 
+                    flex: 2; /* 같은 플렉스 적용 */
+                    display: flex;
+                }
+                    .s1-1 {
+                        flex: 1; 
+                        background: #4ab8bc;
+                    }
+                    .con_up_right {
+                        flex: 1;  /* flex : 1 각각 넣으면 화면의 반반씩 차지 */
+                        display: flex;
+                        flex-direction: column;
+                    }
+                        .s1-2 { 
+                            flex: 1;
+                            background: #589dd2;
+                        }
+                        .s1-3 { 
+                            flex: 1;
+                            background: #ff912f;
+                        }
+                #con_down { 
+                    flex: 1;
+                    display: flex;
+
+                }
+                 /* 들여쓰기하면 con_wrap 안에 들어 있는 요소라는 뜻 */
+                    .s2-1 { 
+                        flex: 1;
+                        background: #589dd2;
+                    }
+                    .s2-2 { 
+                        flex: 1;
+                        background: #8dca35;
+                    }
+        </style>
+        <!-- 푸터 -->
+        <footer style="height: 100px; background:#33353f; position:fixed; bottom:0; width: 100%;"> <!-- 일회용 스타일 -->
+            푸터
+        </footer>
+    </div>
+    <script>
+
+        // 화면의 높이를 재는 함수 .offset()
+
+        //#con_wrap 세로 길이 구하기
+        var footerTop = $('footer').offset().top; // 화면 제일 위에서부터 푸터까지의 거리
+        // $('footer') 제이쿼리에서 선택자를 가져오는 방법
+        var con_wrapTop = $('#con_wrap').offset().top;
+
+        // console.log(con_wrapTop);
+
+        //#con_wrap의 높이
+        var con_wrapHeight = footerTop - con_wrapTop;
+        console.log(con_wrapHeight);
+
+        $('#con_wrap').css( {height:con_wrapHeight}); //가로 길이 지정
+
+        //화면 크기를 조절했을 때 #con_wrap의 세로 길이를 다시 지정
+        $(window).resize(function(){
+            var footerTop = $('footer').offset().top; 
+            var con_wrapHeight = footerTop - con_wrapTop;
+            $('#con_wrap').css( {height:con_wrapHeight});
+        }); //.css() css 의 속성을 그래도 쓸 수 있음
+
+        //resize 제이쿼리 매소드이기 때문에 () 있어야 실행됨
+    </script>
+</body>
+</html>
